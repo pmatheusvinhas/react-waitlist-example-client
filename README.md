@@ -1,28 +1,31 @@
-# React Waitlist Example - Client-Side Direct Usage
+# React Waitlist - Vite Direct Example
 
-This example demonstrates how to use the `WaitlistForm` component from the `react-waitlist` package in a Vite React application with direct callbacks to handle form submissions.
+This example demonstrates using the React Waitlist component with direct integration in a Vite application. It showcases all the features of the library, including:
 
-## Features
-
-- Client-side React application built with Vite
-- Direct integration with your own backend or database
-- TypeScript support
-- No proxy server required
+- Form validation
+- reCAPTCHA integration
+- Analytics tracking
+- Resend audience integration
+- Event logging
+- API call tracking
+- Custom styling with Tailwind theme
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.x or later
+- Node.js 16+
 - npm or yarn
+- A Resend account with an API key and audience ID
+- A reCAPTCHA v3 site key
 
 ### Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/pmatheusvinhas/react-waitlist-example-client.git
-cd react-waitlist-example-client
+git clone https://github.com/pmatheusvinhas/react-waitlist.git
+cd react-waitlist/examples/vite-direct
 ```
 
 2. Install dependencies:
@@ -30,10 +33,30 @@ cd react-waitlist-example-client
 ```bash
 npm install
 # or
-yarn install
+yarn
 ```
 
-3. Start the development server:
+3. Configure environment variables:
+
+Copy the `.env.production` file to `.env.local` and fill in your actual values:
+
+```bash
+cp .env.production .env.local
+```
+
+Then edit `.env.local` with your actual API keys:
+
+```
+VITE_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+VITE_RESEND_API_KEY=your_resend_api_key_here
+VITE_RESEND_AUDIENCE_ID=your_audience_id_here
+VITE_WEBHOOK_URL=https://your-webhook-url.com/api/webhook
+VITE_WEBHOOK_TOKEN=your_webhook_token_here
+```
+
+### Running the Example
+
+Start the development server:
 
 ```bash
 npm run dev
@@ -41,103 +64,55 @@ npm run dev
 yarn dev
 ```
 
-4. Open [http://localhost:5173](http://localhost:5173) in your browser to see the result.
+Open your browser to [http://localhost:5173](http://localhost:5173) to see the example in action.
 
-## How It Works
+## Features Demonstrated
 
-This example uses the `WaitlistForm` component from the `react-waitlist` package with custom callbacks to handle form submissions. Instead of using the built-in Resend integration, it demonstrates how to handle the form data yourself and integrate with your own backend or database.
+### 1. Form Configuration
 
-```jsx
-import { WaitlistForm } from 'react-waitlist';
+The example shows how to configure the form with:
 
-function App() {
-  // Simulated database function
-  const saveToDatabase = async (data) => {
-    console.log('Saving to database:', data);
-    // In a real app, this would be an API call to your backend
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true, id: 'user_' + Math.random().toString(36).substr(2, 9) });
-      }, 1000);
-    });
-  };
+- Custom fields (text, email, select, checkbox)
+- Custom validation
+- Custom styling using the Tailwind theme
 
-  return (
-    <div>
-      <WaitlistForm 
-        title="Join Our Waitlist"
-        description="Be the first to know when we launch."
-        submitText="Join Now"
-        fields={[
-          {
-            name: 'email',
-            type: 'email',
-            label: 'Email',
-            required: true,
-          },
-          {
-            name: 'firstName',
-            type: 'text',
-            label: 'First Name',
-            required: false,
-          }
-        ]}
-        onSubmit={({ formData }) => {
-          console.log('Form submitted:', formData);
-        }}
-        onSuccess={async ({ formData }) => {
-          // Handle the form submission yourself
-          try {
-            const result = await saveToDatabase(formData);
-            console.log('Saved successfully:', result);
-            return { success: true, data: result };
-          } catch (error) {
-            console.error('Error saving data:', error);
-            throw new Error('Failed to save data');
-          }
-        }}
-        onError={({ error }) => {
-          console.error('Error:', error);
-        }}
-      />
-    </div>
-  );
-}
-```
+### 2. Security Features
 
-## Advantages of This Approach
+- Honeypot fields for bot detection
+- Submission time checking
+- reCAPTCHA v3 integration
 
-- **Simplicity**: No need to set up proxy endpoints or additional server-side code.
-- **Control**: Full control over how form data is processed and stored.
-- **Integration**: Easy integration with your existing backend systems.
+### 3. Analytics Integration
 
-## Use Cases
+- Event tracking
+- Google Analytics integration
+- Custom event logging
 
-This approach is ideal for:
+### 4. Resend Integration
 
-- Applications with existing backend APIs
-- When you want to store waitlist data in your own database
-- When you need custom validation or processing logic
-- When you're not using Resend for email management
+- Direct API key usage (for demonstration purposes)
+- Custom field mapping
+- Metadata handling
 
-## Production Deployment
+### 5. Event Logging
 
-For production deployment, you would typically:
+The example includes a real-time event log that shows:
 
-1. Build the client-side application:
+- Form events (field focus, submit, success, error)
+- API calls
+- Timestamps and data for each event
 
-```bash
-npm run build
-```
+## Project Structure
 
-2. Deploy the built files (in the `dist` directory) to a static hosting service.
-
-3. Ensure your backend API is properly set up to receive the form submissions.
+- `src/App.tsx` - Main component with the WaitlistForm integration
+- `src/App.css` - Styles for the example
+- `index.html` - HTML template with Google Analytics integration
+- `.env` - Environment variables (not committed to git)
+- `.env.production` - Template for environment variables
 
 ## Learn More
 
-- [React Waitlist Documentation](https://github.com/pmatheusvinhas/react-waitlist)
-- [Vite Documentation](https://vitejs.dev/guide/)
+For more information about React Waitlist, check out the [documentation](https://github.com/pmatheusvinhas/react-waitlist).
 
 ## License
 
