@@ -10,6 +10,8 @@ This example demonstrates using the React Waitlist component with direct integra
 - API call tracking
 - Custom styling with Tailwind theme
 
+> **Warning**: This example uses direct API integration, which exposes API keys in the client side. It's suitable for **development and testing only**. For production, we recommend using the [Vite Proxy Example](../vite-proxy) which implements a more secure architecture.
+
 ## Getting Started
 
 ### Prerequisites
@@ -102,6 +104,16 @@ The example includes a real-time event log that shows:
 - API calls
 - Timestamps and data for each event
 
+## Known Limitations
+
+This example demonstrates direct API integration, which has the following limitations:
+
+1. **CORS Issues**: Browser security will block direct API calls to Resend and reCAPTCHA from client-side code
+2. **API Key Security**: API keys are exposed in the client-side code, which is a security risk
+3. **Limited Error Handling**: Error responses from the APIs may not be fully accessible from the client side
+
+These limitations are expected and highlighted in the UI. For a production-ready implementation, use the [Vite Proxy Example](../vite-proxy) which addresses these issues.
+
 ## Project Structure
 
 - `src/App.tsx` - Main component with the WaitlistForm integration
@@ -110,9 +122,14 @@ The example includes a real-time event log that shows:
 - `.env` - Environment variables (not committed to git)
 - `.env.production` - Template for environment variables
 
-## Learn More
+## Related Documentation
 
-For more information about React Waitlist, check out the [documentation](https://github.com/pmatheusvinhas/react-waitlist).
+For more information about React Waitlist, check out these resources:
+
+- [Main Documentation](../../docs/README.md)
+- [API Reference](../../docs/api.md)
+- [Security Guide](../../docs/security.md)
+- [Performance Guide](../../docs/performance.md)
 
 ## License
 

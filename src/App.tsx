@@ -146,7 +146,7 @@ function App() {
       <main className="main-content">
         <div className="form-container">
           <WaitlistForm 
-            title="Join Our Waitlist"
+            title="Join our waitlist"
             description="Be the first to know when we launch our new product."
             submitText="Join Now"
             
